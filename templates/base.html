@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <script src="/js/response.min.js"></script>
+    
+    {% block head %}
+    {% endblock head %}
+	<title>{{ site.title }} | {{ page.title }}</title>
+  </head>
+
+  <body>
+    <div id=wrap>
+        <nav class="navbar navbar-default" role=naviagation>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jm-navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Jacob Merson</a>
+                </div>
+                <div class="collapse navbar-collapse" id="jm-navbar">
+                    <u1 class="nav navbar-nav">
+                        {%- for nav in site.tags['_nav']|sort(attribute='nav_weight') %}
+                          {%- if nav.url == page.url %}
+                            <li class="active">
+                                <a href="{{ nav.url }}">{{ nav.title }}</a>
+                            </li>
+                          {%- else %}
+                            <li> 
+                                <a href="{{ nav.url }}">{{ nav.title }}</a>
+                            </li>
+                          {%- endif %}
+                        {%- endfor %}
+                    </u1>
+                </div>
+        </nav>
+
+    <div class="container">
+
+        <div id="main">
+            {% block body %}
+            {% endblock body %}
+        </div>
+
+    </div> <!--End of container --!>
+    </div> <!--End of wrap--!>
+    <div id="footer">
+        <div class="container">
+        <p class="text-muted">&copy; {{ site.date.year }}, Jacob Merson</p>
+        </div>
+    </div>
+
+
+
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        {% block bottom %}
+        {% endblock bottom %}
+  </body>
+</html>

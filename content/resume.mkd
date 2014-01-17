@@ -1,0 +1,7 @@
+title: Resume
+slug: resume
+type: resume 
+tags: [_nav]
+nav_weight: 3
+
+---

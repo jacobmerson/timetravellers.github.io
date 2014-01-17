@@ -1,0 +1,82 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Arch Linux)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 78 languages loaded.
+(/home/mersoj/Documents/resume/resume.tex
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size11.clo))
+(/usr/share/texmf-dist/tex/generic/tex4ht/tex4ht.sty)
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Arch Linux)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 78 languages loaded.
+(/home/mersoj/Documents/resume/resume.tex
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size11.clo))
+(/usr/share/texmf-dist/tex/generic/tex4ht/tex4ht.sty)
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Arch Linux)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 78 languages loaded.
+(/home/mersoj/Documents/resume/resume.tex
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size11.clo))
+(/usr/share/texmf-dist/tex/generic/tex4ht/tex4ht.sty)
+----------------------------
+tex4ht.c (2012-07-25-19:36 kpathsea)
+tex4ht -f//home/mersoj/Documents/resume/resume.tex 
+  -i~/tex4ht.dir/texmf/tex4ht/ht-fonts/ 
+(/usr/share/texmf-dist/tex4ht/base/unix/tex4ht.env)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/iso8859/1/charset/unicode.4hf)
+(/usr/share/texmf-dist/fonts/tfm/adobe/palatino/pplri8t.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/adobe/palatino/pplri8t.htf)
+Searching `lm-ec.htf' for `pplri8t.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/lm/lm-ec.htf)
+(/usr/share/texmf-dist/fonts/tfm/adobe/palatino/pplb8t.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/adobe/palatino/pplb8t.htf)
+Searching `lm-ec.htf' for `pplb8t.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/lm/lm-ec.htf)
+(/usr/share/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/cm/cmsy.htf)
+(/usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/adobe/helvetic/phvr8t.htf)
+Searching `lm-ec.htf' for `phvr8t.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/lm/lm-ec.htf)
+(/usr/share/texmf-dist/fonts/tfm/adobe/palatino/pplri8t.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/adobe/palatino/pplri8t.htf)
+Searching `lm-ec.htf' for `pplri8t.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/lm/lm-ec.htf)
+(/usr/share/texmf-dist/fonts/tfm/adobe/palatino/pplr8t.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/adobe/palatino/pplr8t.htf)
+Searching `lm-ec.htf' for `pplr8t.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/lm/lm-ec.htf)
+(/usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvrc8t.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/adobe/helvetic/phvrc8t.htf)
+Searching `ec-iwonacap.htf' for `phvrc8t.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/iwona/ec-iwonacap.htf)
+(/usr/share/texmf-dist/fonts/tfm/adobe/palatino/pplr8t.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/adobe/palatino/pplr8t.htf)
+Searching `lm-ec.htf' for `pplr8t.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/lm/lm-ec.htf)
+(/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm)
+(/usr/share/texmf-dist/tex4ht/ht-fonts/alias/ec/ec.htf)
+Searching `lm-ec.htf' for `ecrm1095.htf'
+(/usr/share/texmf-dist/tex4ht/ht-fonts/unicode/lm/lm-ec.htf)
+[1 file resume.html
+ file resume.css
+ file resume.tmp
+] [2] [3]
+Execute script `resume.lg'
+----------------------------
+t4ht.c (2012-07-25-19:28 kpathsea)
+t4ht -f//home/mersoj/Documents/resume/resume.tex 
+(/usr/share/texmf-dist/tex4ht/base/unix/tex4ht.env)
+Entering resume.lg
+Entering resume.css
+Entering resume.tmp
