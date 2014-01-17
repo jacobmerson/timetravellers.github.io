@@ -7,4 +7,4 @@ nav_weight: 1
 image:
     url: /img/dunes.jpg
 ---
-You have reached the home page of Jacob Merson. Please explore and learn [about](about.html) me. If you have any questions please [contact](contact.html) with me.
+You have reached the home page of Jacob Merson. Please explore and learn [about](about.html) me. If you have any questions please [contact](contact.html) me.
