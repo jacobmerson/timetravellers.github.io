@@ -37,6 +37,17 @@ class Resume:
             os.rmdir(self.temp_dir)
             os.chdir(self.site_dir)
 
+    def generatePdfResume(self):
+        '''
+        generate pdf file of resume
+        and add it to site content
+        '''
+        print('Generate Resume PDF')
+        path = os.path.join(self.site_dir,'media/pdf/')
+        os.chdir(path);
+        with open('res_log.txt','w') as f:
+            subprocess.call(['latexmk', '-pdf', '-c' , self.res_path], stdout=f);
+        os.chdir(self.site_dir)
 
     def generateResume(self):
         '''
