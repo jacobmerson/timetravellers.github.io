@@ -14,6 +14,7 @@ class Resume:
     temp_dir = os.path.abspath('assets/temp')
     res_file = 'resume'
     res_path='~/Documents/resume/resume.tex'
+    res_pdf_path='~/Documents/resume/resume.pdf'
 
     def createTempFolder(self):
         '''
@@ -42,12 +43,9 @@ class Resume:
         generate pdf file of resume
         and add it to site content
         '''
-        print('Generate Resume PDF')
+        print('Copy resume.pdf from ~/Documents/resume/resume.pdf')
         path = os.path.join(self.site_dir,'media/pdf/')
-        os.chdir(path);
-        with open('res_log.txt','w') as f:
-            subprocess.call(['latexmk', '-pdf', '-c' , self.res_path], stdout=f);
-        os.chdir(self.site_dir)
+        shutil.copy(os.path.expanduser(self.res_pdf_path), path)
 
     def generateResume(self):
         '''
