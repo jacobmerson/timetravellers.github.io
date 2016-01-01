@@ -10,6 +10,9 @@
     <!-- styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/footer.css" rel="stylesheet">
+    <!-- Style for code syntax highlighting -->
+    <link href="/css/highlighting.css" rel="stylesheet">
+    <link href="/css/mathjax.css" rel="stylesheet">
     
     
     
@@ -20,6 +23,30 @@
         <script src="/js/response.min.js"></script>
         <script src="/js/html5.shif.js"></script>
     <![endif]-->
+
+    <!--Add mathjax capability-->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+        MathJax.Hub.Queue(function() {
+            // Fix <code> tags after MathJax finishes running. This is a
+            // hack to overcome a shortcoming of Markdown. Discussion at
+            // https://github.com/mojombo/jekyll/issues/199
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i = 0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
   </head>
 
   <body>
@@ -46,6 +73,9 @@
                                 <a href="/resume.html">Resume</a>
                             </li>
                             <li> 
+                                <a href="/blog/index.html">Blog</a>
+                            </li>
+                            <li> 
                                 <a href="/contact.html">Contact</a>
                             </li>
                     </u1>
@@ -66,7 +96,7 @@
     </div> <!--End of wrap--!>
     <div id="footer">
         <div class="container">
-        <p class="text-muted">&copy; 2014, Jacob Merson</p>
+        <p class="text-muted">&copy; 2016, Jacob Merson</p>
         </div>
     </div>
 

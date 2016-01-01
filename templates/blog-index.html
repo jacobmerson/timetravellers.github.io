@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% if page.image %}
+            <div class="col-md-4">
+                <!--image -->
+                <img src="{{page.image.url}}" class="img-responsive">
+            </div>
+            <div class="col-md-8">
+                <p class="lead">{{page.content|truncate(length=1200)}}</p>
+            </div>
+        {% else %}
+            <div class="col-md-12">
+                <p class="lead">{{page.content|truncate(length=1200)}}</p>
+            </div>
+        {% endif %}
+    </div>
+</div> <!-- /container -->
+{% if pagination %}
+    {% for subpage in pagination.page_items %}
+        <a href="{{subpage.url}}"><h2>{{subpage.title}}</h2></a>
+        {{subpage.content}}
+        <hr>
+    {% endfor %}
+    <span class="container-fluid">
+        {% if pagination.prev_page %}
+            <a href="{{ pagination.prev_page.url }}">Previous Page</a>
+        {% endif %}
+        Page {{ pagination.cur_page }} of {{ pagination.num_pages }}
+        {% if pagination.next_page %}
+            <a href="{{ pagination.next_page.url }}">Next Page</a>
+        {% endif %}
+    </span>
+{% endif %}
+{% endblock body %}
