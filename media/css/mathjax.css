@@ -1,1 +1,10 @@
-code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+/* Reset all of the css tags which are set by pygments to inherit from mathjax*/
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    font-style: italic;
+    font-weight: inherit;
+    color: inherit;
+    background: inherit;
+    border: inherit; 
+}
