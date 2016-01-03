@@ -10,13 +10,15 @@ image:
 ---
 ### Basics
 
-I am an undergraduate mechanical engineering student at [Rensselaer Polytechnic Institute (RPI)](http://www.rpi.edu). My interests include: fluid dynamics, finite elements, embeded systems, and programming.
+I am an graduate student studying mechanical engineering at [Rensselaer Polytechnic Institute (RPI)](http://www.rpi.edu).
 
 ### Work
-I currently work as an undergraduate research assistant in the RPI Nano-M3 lab under [Professor Johnson Samuel](http://www.johnsonsamuel.com). I work with manufacturing bio-materials and finite element analysis of materials with significant microstructural characteristics.
 
-### Future Goals
-After I gratuate RPI with a BS in mechanical engineering I hope to pursue graduate studies in computational fluid dynamics. I believe that this is a good fit for me because I enjoy the fundamental fluid dynamics equations, finite element methods, and programming. 
+I am currently working for Professor Catalin Picu studing computational mechanics.
+
+I have also worked at [Los Alamos National Lab](www.lanl.gov) studying residual stress and plastic anisotropy with Dr. Michael Prime.
+
+I used to work as an undergraduate research assistant in the RPI Nano-M3 lab under [Professor Johnson Samuel](http://www.johnsonsamuel.com). With professor Samuel I worked with manufacturing bio-materials and finite element analysis of materials with significant microstructural characteristics.
 
 ### Other
 If you have any questions please feel free to [contact me](contact.html). Also please check out my [resume](resume.html).

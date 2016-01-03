@@ -1,29 +1,26 @@
 {% extends "base.html" %}
 
 {% block body %}
-
 {% if pagination %}
     <div class="container">
-    {% for subpage in pagination.page_items %}
         <div class="row">
             <div class="col-md-12">
-            <a href="{{ subpage.url }}"><h2>{{ subpage.title }}</h2></a>
+            <h1>{{ page.title }}</h1>
             </div>
-            {% if subpage.image %}
+            {% if page.image %}
                 <div class="col-md-4">
                     <!--image -->
-                    <img src="{{ subpage.image.url }}" class="img-responsive">
+                    <img src="{{ page.image.url }}" class="img-responsive">
                 </div>
                 <div class="col-md-8">
-                    <p class="lead">{{ subpage.content|truncate(length=200) }}</p>
+                    <p class="lead">{{ page.content }}</p>
                 </div>
             {% else %}
                 <div class="col-md-12">
-                    <p class="lead">{{ subpage.content|truncate(length=200) }}</p>
+                    <p class="lead">{{ page.content }}</p>
                 </div>
             {% endif %}
         </div>
-    {% endfor %}
     </div>
     <span class="container-fluid">
         {% if pagination.prev_page %}

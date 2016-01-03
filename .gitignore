@@ -1,2 +1,6 @@
 *.pyc
 *.swp
+*.tex
+*.fdb_latexmk
+*.dat
+*.bib
