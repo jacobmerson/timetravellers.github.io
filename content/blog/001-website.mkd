@@ -1,0 +1,49 @@
+﻿title: Website
+type: blog-entry
+category: blog
+date: 2015-01-02
+slug: website
+published: true
+tags: [static site, wok, pygments, mathjax, css]
+
+---
+
+I currently don't have the time to fully explain all of the things I have done with my website. For now this article is a stub that gives a shout out to the amazing technology that I rely on to put words onto the internet.
+
+
+## Static Site Generation
+To generate HTML pages from markdown files and [Jinja](http://jinja.pocoo.org/) templates I use the static site generator called [Wok](https://github.com/mythmon/wok) developed by Mike Cooper. It's not as hard as it sounds, and it really beats hand coding html.
+
+## Responsive-ish Design
+I am not a web developer and I guarantee that I made some mistakes. I used the [twitter bootstrap 3](http://getbootstrap.com/) css framework to make my webpage responsive.
+
+## Math
+Math is my bread...As a mechanical engineering graduate student it encompasses much of what I do. Writing math on the internet would be impossible without [Mathjax](https://www.mathjax.org/). This is a really cool project that renders latex or mathml style math in the browser.
+
+For example the Lagrange Strain tensor:
+`\[E_{ij}=\left(\frac{\partial u_i}{\partial x_j}+\frac{\partial u_j}{\partial x_i}+\frac{\partial u_k}{\partial x_j}\frac{\partial u_k}{\partial x_i} \right)\]`
+
+Unfortunately due to the math rendering the pages can load slowly on a flaky internet connection. This is frustrating and even on my "high speed" internet connection at home the math takes a while to load. Granted, my high speed cable seems to crap out running vim via ssh, so the bandwidth is questionable.
+
+## Programming
+Programming is my butter...Since I'm studying computational mechanics it turns out that I have to do a lot of programming. In order to make my code look nice I use a python module called [pygments](http://pygments.org/).
+For example here is some syntax highlighted python code.
+
+    :::python
+    #!/usr/bin/env python
+    
+    import glob
+
+    def useless_python_function(**args):
+        """
+        This function is used to list files
+        """
+        #files is a list of all files in the folder
+        files = glob.glob('*')
+        
+        #print each file name
+        for file in files:
+            print file
+    
+    if __name__ == "__main__":
+        useless_python_function()

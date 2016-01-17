@@ -22,15 +22,6 @@
             {% endif %}
         </div>
     </div>
-    <span class="container-fluid">
-        {% if pagination.prev_page %}
-            <a href="{{ pagination.prev_page.url }}">Previous Page</a>
-        {% endif %}
-        Page {{ pagination.cur_page }} of {{ pagination.num_pages }}
-        {% if pagination.next_page %}
-            <a href="{{ pagination.next_page.url }}">Next Page</a>
-        {% endif %}
-    </span>
 {% else %} <!-- if no pagination is selected -->
 <h1>You should never see this text. Pagination should always be used with this type of page!</h1>
 {% endif %}

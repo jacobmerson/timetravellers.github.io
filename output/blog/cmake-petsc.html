@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <!-- Style for code syntax highlighting -->
+    <link href="/css/highlighting.css" rel="stylesheet">
+    <link href="/css/mathjax.css" rel="stylesheet">
+    
+    
+    
+	<title>Jacob Merson | Using CMAKE with PETSc or MPI</title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+        <script src="/js/response.min.js"></script>
+        <script src="/js/html5.shif.js"></script>
+    <![endif]-->
+
+    <!--Add mathjax capability-->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+        MathJax.Hub.Queue(function() {
+            // Fix <code> tags after MathJax finishes running. This is a
+            // hack to overcome a shortcoming of Markdown. Discussion at
+            // https://github.com/mojombo/jekyll/issues/199
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i = 0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+  </head>
+
+  <body>
+    <div id=wrap>
+        <nav class="navbar navbar-default" role=naviagation>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jm-navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Jacob Merson</a>
+                </div>
+                <div class="collapse navbar-collapse" id="jm-navbar">
+                    <u1 class="nav navbar-nav">
+                            <li> 
+                                <a href="/index.html">Home</a>
+                            </li>
+                            <li> 
+                                <a href="/about.html">About</a>
+                            </li>
+                            <li> 
+                                <a href="/resume.html">Resume</a>
+                            </li>
+                            <li> 
+                                <a href="/blog/index.html">Blog</a>
+                            </li>
+                            <li> 
+                                <a href="/contact.html">Contact</a>
+                            </li>
+                    </u1>
+                </div>
+        </nav>
+
+    <div class="container">
+
+        <div id="main">
+            
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <h1>Using CMAKE with PETSc or MPI</h1>
+            </div>
+            
+                <div class="col-md-12">
+                    <p class="lead"><p>A large part of developing software is getting the build process to work. As a new student in RPI's Scientific Computation Research Center (<a href="http://www.scorec.rpi.edu/">SCOREC</a>) I started trying to figure out how to build some of our tools so that we can interface them with new projects.</p>
+<p>More specifically I have written a Euler-Bernoulli and Timoshenko Beam finite element solver using <a href="http://www.mcs.anl.gov/petsc/">PETSc</a>. The goal is to interface this codebase with a multiscale fiber network model that SCOREC is working on for the NIH.</p>
+<p>Although my original goal was to get CMAKE to work with PETSc the eventual solution also pertains to compiling any software that uses MPI with CMAKE.</p>
+<h2>Traditional PETSc Makefile</h2>
+<p>The easiest way to get started compiling your program is by using the compiling commands included with PETSc. My makefile looks like this:</p>
+<div class="codehilite"><pre><span class="nv">CPPFLAGS</span>         <span class="o">=</span> -std<span class="o">=</span>c++0x
+
+<span class="cp">include ${PETSC_DIR}/lib/petsc/conf/variables</span>
+<span class="cp">include ${PETSC_DIR}/lib/petsc/conf/rules</span>
+
+<span class="nf">all</span><span class="o">:</span> <span class="n">beam</span>
+
+<span class="nf">beam</span><span class="o">:</span> <span class="n">beam_fem</span>.<span class="n">o</span> <span class="n">element</span>.<span class="n">o</span> <span class="n">node</span>.<span class="n">o</span> <span class="n">material</span>.<span class="n">o</span> <span class="n">reader</span>.<span class="n">o</span> <span class="n">chkopts</span>
+    -<span class="si">${</span><span class="nv">CLINKER</span><span class="si">}</span> beam_fem.o element.o node.o material.o reader.o <span class="si">${</span><span class="nv">PETSC_KSP_LIB</span><span class="si">}</span> -o beam_fem.out
+
+<span class="nf">beam_fem.o</span><span class="o">:</span> ./<span class="n">src</span>/<span class="n">beam_fem</span>.<span class="n">cpp</span> ./<span class="n">include</span>/<span class="n">element</span>.<span class="n">h</span> ./<span class="n">include</span>/<span class="n">node</span>.<span class="n">h</span>
+    -<span class="k">$(</span>PETSC_COMPILE<span class="k">)</span> -c ./src/beam_fem.cpp -I ./include
+
+<span class="nf">element.o</span><span class="o">:</span> ./<span class="n">src</span>/<span class="n">element</span>.<span class="n">cpp</span> ./<span class="n">include</span>/<span class="n">element</span>.<span class="n">h</span> ./<span class="n">include</span>/<span class="n">node</span>.<span class="n">h</span>
+    -<span class="k">$(</span>PETSC_CXXCOMPILE<span class="k">)</span> -c ./src/element.cpp -I ./include
+
+<span class="nf">node.o</span><span class="o">:</span> ./<span class="n">src</span>/<span class="n">node</span>.<span class="n">cpp</span> ./<span class="n">include</span>/<span class="n">node</span>.<span class="n">h</span>
+    -<span class="k">$(</span>PETSC_CXXCOMPILE<span class="k">)</span> -c ./src/node.cpp -I ./include
+
+<span class="nf">material.o</span><span class="o">:</span> ./<span class="n">src</span>/<span class="n">material</span>.<span class="n">cpp</span> ./<span class="n">include</span>/<span class="n">material</span>.<span class="n">h</span>
+    -<span class="k">$(</span>PETSC_CXXCOMPILE<span class="k">)</span> -c ./src/material.cpp -I ./include
+
+<span class="nf">reader.o</span><span class="o">:</span> ./<span class="n">src</span>/<span class="n">reader</span>.<span class="n">cpp</span> ./<span class="n">include</span>/<span class="n">reader</span>.<span class="n">h</span>
+    -<span class="k">$(</span>PETSC_CXXCOMPILE<span class="k">)</span> -c ./src/reader.cpp -I ./include
+
+<span class="nf">.PHONY</span><span class="o">:</span> <span class="n">print_vars</span>
+<span class="nf">print_vars</span><span class="o">:</span>
+    -@echo <span class="s2">&quot;PETSC_DIR: </span><span class="k">$(</span>PETSC_DIR<span class="k">)</span><span class="s2">&quot;</span>
+    -@echo <span class="s2">&quot;CLINKER: </span><span class="k">$(</span>CLINKER<span class="k">)</span><span class="s2">&quot;</span>
+    -@echo <span class="s2">&quot;CXX_COMPILE: </span><span class="k">$(</span>PETSC_CXXCOMPILE<span class="k">)</span><span class="s2">&quot;</span>
+    -@echo <span class="s2">&quot;C_COMPILE: </span><span class="k">$(</span>PETSC_COMPILE<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<p>You can see that I use the <code>CLINKER</code> and <code>PETSC_CXXCOMPILE</code> commands. These are defined in the petsc variables file that is included at the top of the makefile. I also have a <code>.PHONY</code> rule which lets me print out information about what the PETSc compile commands are actually doing.</p>
+<h2>CMAKE Approach</h2>
+<p>CMAKE is actually quite easy to use with PETSc, but there are some stumbling points for someone who is new to using CMAKE with a library that needs the mpi libraries to compile.</p>
+<p>The <a href="http://www.mcs.anl.gov/petsc/documentation/faq.html#cmake">PETSc FAQs</a> suggest getting the <code>FindPETSc.cmake</code> module from Jed Brown's (a PETSc developer) <a href="https://github.com/jedbrown/cmake-modules/">cmake-modules repository</a>, and to use the CMakeLists.txt from his <a href="https://github.com/jedbrown/dohp">dohp project</a> an example. These are both excellent resources, although for a newcomer there is an extremely high learning curve.</p>
+<p>I have included my CMakeLists.txt below, although the biggest stumbling point is not here...</p>
+<p>If you have ever used PETSc you know that it uses MPI to perform computations in parallel. If you were going to compile a MPI library by hand you would use the <code>MPICC/MPICXX</code> wrappers to compile, but that's not the "right" way to do it in CMAKE is it?</p>
+<p>It turns out that there seems to be some disagreement in the CMAKE community some say that utilities like <code>FindMPI.cmake</code> is <a href="https://cmake.org/pipermail/cmake/2011-June/045037.html">only way to correctly compile a MPI livrary</a>. Others including Jed Brown believe that <a href="https://github.com/jedbrown/cmake-modules/pull/12">"FindMPI.cmake is less reliable than the MPI wrappers"</a>. This sentiment can also be seen on the <a href="https://cmake.org/pipermail/cmake/2010-May/037143.html">mailing list</a>.</p>
+<p>The final solution comes from the <a href="https://cmake.org/Wiki/CMake_FAQ#How_do_I_use_a_different_compiler.3F">CMAKE FAQs</a>...just define your c and c++ compiler as the mpicc/mpicxx scripts.</p>
+<p>The following examples assumes that you have installed mpi along with PETSc.</p>
+<h3>Method 1</h3>
+<p>Set the <code>CC</code> and <code>CXX</code> variables before compiling with cmake.</p>
+<div class="codehilite"><pre><span class="nb">export </span><span class="nv">CC</span><span class="o">=</span><span class="nv">$PETSC_DIR</span>/<span class="nv">$PETSC_ARCH</span>/bin/mpicc
+<span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span><span class="nv">$PETSC_DIR</span>/<span class="nv">$PETSC_ARCH</span>/bin/mpicxx
+mkdir build
+<span class="nb">cd </span>build/
+cmake ..
+</pre></div>
+
+
+<h3>Method 2</h3>
+<p>Use the cmake -D flag to set the compiler options. Note that you only have to supply these command line options the first time you call cmake. All subsequent builds will know to use the appropriate compiler.</p>
+<div class="codehilite"><pre>mkdir build
+<span class="nb">cd </span>build/
+cmake .. -D <span class="nv">CMAKE_C_COMPILER</span><span class="o">=</span><span class="nv">$PETSC_DIR</span>/<span class="nv">$PETSC_ARCH</span>/bin/mpicc -D <span class="nv">CMAKE_CXX_COMPILER</span><span class="o">=</span><span class="nv">$PETSC_DIR</span>/<span class="nv">$PETSC_ARCH</span>/bin/mpicxx
+</pre></div>
+
+
+<h3>CMakeLists.txt</h3>
+<div class="codehilite"><pre><span class="nb">cmake_minimum_required</span> <span class="p">(</span><span class="s">VERSION</span> <span class="s">2.6.3</span><span class="p">)</span>
+<span class="nb">project</span> <span class="p">(</span><span class="s">BEAM</span><span class="p">)</span>
+
+<span class="nb">list</span> <span class="p">(</span><span class="s">APPEND</span> <span class="s">CMAKE_MODULE_PATH</span> <span class="s2">&quot;${BEAM_SOURCE_DIR}/../cmake-modules&quot;</span><span class="p">)</span>
+
+<span class="nb">find_package</span> <span class="p">(</span><span class="s">PETSc</span> <span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">message</span> <span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;PETSC COMPILER ${PETSC_COMPILER}&quot;</span><span class="p">)</span>
+
+<span class="nb">option</span> <span class="p">(</span><span class="s">BEAM_ALL_WARNINGS</span>       <span class="s2">&quot;Compile with all warnings (-Wall)&quot;</span>           <span class="s">ON</span><span class="p">)</span>
+<span class="nb">option</span> <span class="p">(</span><span class="s">BEAM_WERROR</span>             <span class="s2">&quot;Treat warnings as errors (-Werror)&quot;</span>          <span class="s">OFF</span><span class="p">)</span>
+
+<span class="nb">add_definitions</span> <span class="p">(</span><span class="s">-std=c++0x</span><span class="p">)</span>
+<span class="nb">message</span> <span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;CPP COMPILER ${PETSC_COMPILER}&quot;</span><span class="p">)</span>
+
+<span class="nb">if</span> <span class="p">(</span><span class="s">BEAM_ALL_WARNINGS</span><span class="p">)</span>
+    <span class="nb">add_definitions</span> <span class="p">(</span><span class="s2">&quot;-Wall&quot;</span><span class="p">)</span>
+<span class="nb">endif</span> <span class="p">()</span>
+<span class="nb">if</span> <span class="p">(</span><span class="s">BEAM_WERROR</span><span class="p">)</span>
+  <span class="nb">add_definitions</span> <span class="p">(</span><span class="s">-Werror</span><span class="p">)</span>
+<span class="nb">endif</span> <span class="p">()</span>
+
+<span class="nb">include_directories</span> <span class="p">(</span><span class="s2">&quot;${BEAM_SOURCE_DIR}/include&quot;</span> <span class="s2">&quot;${BEAM_BINARY_DIR}/include&quot;</span> <span class="o">${</span><span class="nv">PETSC_INCLUDES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">add_definitions</span> <span class="p">(</span><span class="o">${</span><span class="nv">PETSC_DEFINITIONS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">add_definitions</span> <span class="p">(</span><span class="s">-g</span><span class="p">)</span>
+<span class="nb">message</span> <span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;PETSC_DEFINITIONS ${PETSC_DEFINITIONS}&quot;</span><span class="p">)</span>
+
+<span class="nb">set</span> <span class="p">(</span><span class="s">BEAM_DEPENDENT_LIBRARIES</span> <span class="s2">&quot;${PETSC_LIBRARIES}&quot;</span><span class="p">)</span>
+
+<span class="nb">add_subdirectory</span> <span class="p">(</span><span class="s">include</span><span class="p">)</span>
+<span class="nb">add_subdirectory</span> <span class="p">(</span><span class="s">src</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Conclusions</h2>
+<p>I hope that if you have stumbled upon this webpage that I have saved you a little bit of time. I spent a few days going around in circles trying to make cmake work with my project and PETSc. You can see from my <a href="https://github.com/jedbrown/cmake-modules/pull/12">pull request in FindPETSc.cmake</a> that I originally thought I had to link the mpi libraries manually. This was only after <code>FindMPI.cmake</code> had failed me.</p>
+<p>I have since changed my pull request to add a comment giving instructions on how to set the compiler in CMAKE. If you think that would be a useful addition to <code>FindPETSC.cmake</code> leave a comment on the <a href="https://github.com/jedbrown/cmake-modules/pull/12">pull request</a>.</p>
+<p>This process was definitely an eye opening experience as it was my first time dealing with CMAKE, and trying to commit to an open source project.</p></p>
+                </div>
+            
+        </div>
+    </div>
+
+
+        </div>
+
+        <div class="row"> <!-- add spacing to bottom of site --!>
+        &nbsp
+        </div>
+    </div> <!--End of container --!>
+    </div> <!--End of wrap--!>
+    <div id="footer">
+        <div class="container">
+        <p class="text-muted">&copy; 2016, Jacob Merson</p>
+        </div>
+    </div>
+
+
+
+
+        <!-- javascript
+        ================================================== -->
+        <script src="/js/bootstrap.min.js"></script>
+        <!-- Google Analytics code --!>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-48100105-1', 'jacobmerson.com');
+          ga('send', 'pageview');
+
+        </script>
+        
+        
+  </body>
+</html>
