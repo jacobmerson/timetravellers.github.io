@@ -9,3 +9,5 @@ tags: [abaqus, python, profiling]
 ---
 
 Oddly creating a simulation writing the output, then editing materials and writing a new output is considerably slower than creating a new model from scratch. This is because writing the model output database takes longer with each iteration. This may be due to an increase in mdb size with each change in material.
+
+it seems that I have mostly fixed this issues by not adding more things into the odb each time.
