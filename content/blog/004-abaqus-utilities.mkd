@@ -1,0 +1,166 @@
+title: Abaqus Utilities
+type: blog-entry
+category: blog
+date: 2015-01-18
+slug: abaqus-utilities
+tags: [abaqus, queue, bash, python]
+
+---
+Note: I will try to keep this page up to date, but I won't guarantee it. Updated software is kept in the git repository [here](https://gitlab.com/jacob.merson/abaqus-utilities). If you use this software and want to help me improve it please submit a pull request.
+
+I am releasing these quick an dirty for today. These are two scripts that I use all the time working with Abaqus.
+## Abaqus Queue
+This is a queue for running abaqus jobs. The easiest way to use this is by linking the script to a convenient bin location like `~/bin`. Once this is done you can call the script with all of the jobs you want to run and they will run sequentially.
+
+Here is the whole list of commands you would need to get starting running abaqus jobs.
+
+    :::Bash
+    git clone https://gitlab.com/jacob.merson/abaqus-utilities.git
+    ln -s abaqus-utilities/run_analysis.sh ~/bin/run_analysis.sh
+    chmod +x ~/bin/run_analysis.sh
+
+Now make sure that you have the `~/bin` folder in your path. You should see the following in your `~.bashrc`
+
+    :::Bash
+    export PATH=$HOME/bin
+
+Now you should be able to run abaqus jobs in any folder on your system. Change to a folder with a bunch of input files that you want to run and try using the queue.
+
+    :::Bash 
+    run_analysis.sh *.inp
+
+### Script
+
+    :::Bash
+    #!/usr/bin/env bash
+    #
+    # run_analysis.sh
+    # 
+    # Copyright 2015 Jacob Merson <jacob.merson@gmail.com> 
+    # 
+    # This program is free software: you can redistribute it and/or modify
+    # it under the terms of the GNU General Public License as published by
+    # the Free Software Foundation, either version 3 of the License, or
+    # (at your option) any later version.
+    # 
+    # This program is distributed in the hope that it will be useful,
+    # but WITHOUT ANY WARRANTY; without even the implied warranty of
+    # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    # GNU General Public License for more details.
+    # 
+    # You should have received a copy of the GNU General Public License
+    # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    #
+
+    TIME=$(date +"%x %r %Z")
+    #time after which to kill the simulation
+    #in hours
+    declare -i SIMULATION_DURATION=1
+    #convert duration to seconds
+    SIMULATION_DURATION=$SIMULATION_DURATION*3600
+    EMAIL="$USER"
+    MESSAGE="message.txt"
+    declare -i TERMINATED=0
+
+    function kill_job() {
+        echo "Terminating $1 at $TIME"
+        abaqus terminate job="$1"
+        SUBJECT="Job $1 terminated at $TIME"
+        echo "Job $1 terminated at $TIME" >> $MESSAGE
+    }
+
+    for f in $@
+    do
+        TIME=$(date +"%x %r %Z")
+        echo "Starting job=$f at $TIME"
+        echo "Starting job=$f at $TIME" > $MESSAGE
+        #set trap to cleanly take care of shutting abaqus down
+        trap "kill_job $f" SIGINT
+        abaqus job="$f" ask_delete=off
+        #sleep for 20 sec to allow abaqus to start
+        sleep 20
+        #while the lock file exists (simulation running)
+        #sleep for 5 sec at a time
+        while [ -f ${f}.lck ]; do
+            sleep 5
+            SIMULATION_DURATION=$SIMULATION_DURATION-5
+            #if the simulation has been running for more than the specified time
+            #Cleanly terminate the job
+            if [ $SIMULATION_DURATION -lt 0 ]
+                then
+            TIME=$(date +"%x %r %Z")
+                    kill_job "$f"
+                    TERMINATED=1
+                    break
+            fi
+        done
+        if [ $TERMINATED -eq 0 ]
+        then
+            TIME=$(date +"%x %r %Z")
+            SUBJECT="Job $f Completed at $TIME"
+            echo "Job $f Completed at $TIME" >> $MESSAGE
+        fi
+        mail -a "$f.dat" -a "$f.sta" -s "$SUBJECT" "$EMAIL" < $MESSAGE
+    done
+
+    rm "message.txt"
+
+## Cleanup Script
+
+This script is a very simple python utility that cleans up all of the abaqus temporary files when you are done with them.
+
+    :::Bash
+    ln -s abaqus-utilities/clean_abaqus.py ~/bin/clean_abaqus.py
+    chmod +x ~/bin/clean_abaqus.py
+
+Change to the directory where you ran all of your jobs and all of the files with the extensions listed in the script will be gone. No more wasting time deleting all of those files Abaqus generates.
+
+    :::Bash
+    clean_abaqus.py
+
+    :::python
+    #!/usr/bin/env python
+    #
+    # clean_abaqus.py
+    # 
+    # Copyright 2015 Jacob Merson <jacob.merson@gmail.com> 
+    # 
+    # This program is free software: you can redistribute it and/or modify
+    # it under the terms of the GNU General Public License as published by
+    # the Free Software Foundation, either version 3 of the License, or
+    # (at your option) any later version.
+    # 
+    # This program is distributed in the hope that it will be useful,
+    # but WITHOUT ANY WARRANTY; without even the implied warranty of
+    # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    # GNU General Public License for more details.
+    # 
+    # You should have received a copy of the GNU General Public License
+    # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    #
+
+    import glob
+    import os
+
+    ##############
+    # This file removes all of the standard abaqus files from
+    # the current directory
+    ##############
+
+    #specify files to delete with glob syntax
+    file_types = ['*.sta', '*.dat', '*.log','*.rpy','*.rpy.*', '*.msg', '*.dat',
+                  '*.com', '*.sim','*.log','*.msg', '*.prt', '*.023', '*.ipm',
+                  '*.mdl', '*.stt', '*.rec', '*.aif']
+
+
+    def delete_files(files):
+        for f in files:
+            os.remove(f)
+
+
+    files = []
+
+    for ft in file_types:
+        delete_files(glob.glob(ft))
+
+I hope you find these useful. Like I said I use both of these almost every day so I figured it was time to share.
