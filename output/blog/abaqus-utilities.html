@@ -202,10 +202,7 @@ chmod +x ~/bin/clean_abaqus.py
 
 
 <p>Change to the directory where you ran all of your jobs and all of the files with the extensions listed in the script will be gone. No more wasting time deleting all of those files Abaqus generates.</p>
-<div class="codehilite"><pre>clean_abaqus.py
-
-:::python
-<span class="c">#!/usr/bin/env python</span>
+<div class="codehilite"><pre><span class="c">#!/usr/bin/env python</span>
 <span class="c">#</span>
 <span class="c"># clean_abaqus.py</span>
 <span class="c"># </span>
@@ -225,8 +222,8 @@ chmod +x ~/bin/clean_abaqus.py
 <span class="c"># along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="c">#</span>
 
-import glob
-import os
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="c">##############</span>
 <span class="c"># This file removes all of the standard abaqus files from</span>
@@ -234,20 +231,20 @@ import os
 <span class="c">##############</span>
 
 <span class="c">#specify files to delete with glob syntax</span>
-<span class="nv">file_types</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;*.sta&#39;</span>, <span class="s1">&#39;*.dat&#39;</span>, <span class="s1">&#39;*.log&#39;</span>,<span class="s1">&#39;*.rpy&#39;</span>,<span class="s1">&#39;*.rpy.*&#39;</span>, <span class="s1">&#39;*.msg&#39;</span>, <span class="s1">&#39;*.dat&#39;</span>,
-              <span class="s1">&#39;*.com&#39;</span>, <span class="s1">&#39;*.sim&#39;</span>,<span class="s1">&#39;*.log&#39;</span>,<span class="s1">&#39;*.msg&#39;</span>, <span class="s1">&#39;*.prt&#39;</span>, <span class="s1">&#39;*.023&#39;</span>, <span class="s1">&#39;*.ipm&#39;</span>,
-              <span class="s1">&#39;*.mdl&#39;</span>, <span class="s1">&#39;*.stt&#39;</span>, <span class="s1">&#39;*.rec&#39;</span>, <span class="s1">&#39;*.aif&#39;</span><span class="o">]</span>
+<span class="n">file_types</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*.sta&#39;</span><span class="p">,</span> <span class="s">&#39;*.dat&#39;</span><span class="p">,</span> <span class="s">&#39;*.log&#39;</span><span class="p">,</span><span class="s">&#39;*.rpy&#39;</span><span class="p">,</span><span class="s">&#39;*.rpy.*&#39;</span><span class="p">,</span> <span class="s">&#39;*.msg&#39;</span><span class="p">,</span> <span class="s">&#39;*.dat&#39;</span><span class="p">,</span>
+              <span class="s">&#39;*.com&#39;</span><span class="p">,</span> <span class="s">&#39;*.sim&#39;</span><span class="p">,</span><span class="s">&#39;*.log&#39;</span><span class="p">,</span><span class="s">&#39;*.msg&#39;</span><span class="p">,</span> <span class="s">&#39;*.prt&#39;</span><span class="p">,</span> <span class="s">&#39;*.023&#39;</span><span class="p">,</span> <span class="s">&#39;*.ipm&#39;</span><span class="p">,</span>
+              <span class="s">&#39;*.mdl&#39;</span><span class="p">,</span> <span class="s">&#39;*.stt&#39;</span><span class="p">,</span> <span class="s">&#39;*.rec&#39;</span><span class="p">,</span> <span class="s">&#39;*.aif&#39;</span><span class="p">]</span>
 
 
-def delete_files<span class="o">(</span>files<span class="o">)</span>:
-    <span class="k">for</span> f in files:
-        os.remove<span class="o">(</span>f<span class="o">)</span>
+<span class="k">def</span> <span class="nf">delete_files</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 
-<span class="nv">files</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> ft in file_types:
-    delete_files<span class="o">(</span>glob.glob<span class="o">(</span>ft<span class="o">))</span>
+<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">file_types</span><span class="p">:</span>
+    <span class="n">delete_files</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">ft</span><span class="p">))</span>
 </pre></div>
 
 
