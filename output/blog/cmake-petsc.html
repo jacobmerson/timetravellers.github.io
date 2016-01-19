@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Computational Mechanics">
+    <meta name="author" content="Jacob Merson">
 
     <!-- styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
     <link href="/css/footer.css" rel="stylesheet">
+    <link href="/css/blog.css" rel="stylesheet">
     <!-- Style for code syntax highlighting -->
     <link href="/css/highlighting.css" rel="stylesheet">
     <link href="/css/mathjax.css" rel="stylesheet">
@@ -86,15 +88,16 @@
 
         <div id="main">
             
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-            <h1>Using CMAKE with PETSc or MPI</h1>
-            </div>
-            
-                <div class="col-md-12">
-                    <p class="lead"><p>A large part of developing software is getting the build process to work. As a new student in RPI's Scientific Computation Research Center (<a href="http://www.scorec.rpi.edu/">SCOREC</a>) I started trying to figure out how to build some of our tools so that we can interface them with new projects.</p>
+<div class="container">
+<div class="blog-header">
+    <h1 class="blog-post-title"> Using CMAKE with PETSc or MPI </h1>
+    <p class="blog-post-date"> Saturday January 17, 2015 </p>
+    <p class="blog-post-tags">  cmake  petsc  c++  mpi  </p>
+</div> <!-- blog header --!>
+<div class="blog-main">
+    
+        <div class="blog-post-content">
+            <p class="lead"><p>A large part of developing software is getting the build process to work. As a new student in RPI's Scientific Computation Research Center (<a href="http://www.scorec.rpi.edu/">SCOREC</a>) I started trying to figure out how to build some of our tools so that we can interface them with new projects.</p>
 <p>More specifically I have written a Euler-Bernoulli and Timoshenko Beam finite element solver using <a href="http://www.mcs.anl.gov/petsc/">PETSc</a>. The goal is to interface this codebase with a multiscale fiber network model that SCOREC is working on for the NIH.</p>
 <p>Although my original goal was to get CMAKE to work with PETSc the eventual solution also pertains to compiling any software that uses MPI with CMAKE.</p>
 <h2>Traditional PETSc Makefile</h2>
@@ -199,11 +202,11 @@ cmake .. -D <span class="nv">CMAKE_C_COMPILER</span><span class="o">=</span><spa
 <p>I hope that if you have stumbled upon this webpage that I have saved you a little bit of time. I spent a few days going around in circles trying to make cmake work with my project and PETSc. You can see from my <a href="https://github.com/jedbrown/cmake-modules/pull/12">pull request in FindPETSc.cmake</a> that I originally thought I had to link the mpi libraries manually. This was only after <code>FindMPI.cmake</code> had failed me.</p>
 <p>I have since changed my pull request to add a comment giving instructions on how to set the compiler in CMAKE. If you think that would be a useful addition to <code>FindPETSC.cmake</code> leave a comment on the <a href="https://github.com/jedbrown/cmake-modules/pull/12">pull request</a>.</p>
 <p>This process was definitely an eye opening experience as it was my first time dealing with CMAKE, and trying to commit to an open source project.</p></p>
-                </div>
-            
         </div>
-    </div>
-
+    
+</div> <!-- blog main --!>
+</div>
+</div>
 
         </div>
 

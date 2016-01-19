@@ -6,7 +6,7 @@ slug: abaqus-utilities
 tags: [abaqus, queue, bash, python]
 
 ---
-Note: I will try to keep this page up to date, but I won't guarantee it. Updated software is kept in the git repository [here](https://gitlab.com/jacob.merson/abaqus-utilities). If you use this software and want to help me improve it please submit a pull request.
+Note: I will try to keep this page up to date, but I won't guarantee it. Updated software is kept in the git repository [here](https://gitlab.com/jacob.merson/abaqus-utilities). If you use this software and want to help me improve it please submit a merge request.
 
 I am releasing these quick an dirty for today. These are two scripts that I use all the time working with Abaqus.
 ## Abaqus Queue
@@ -117,6 +117,7 @@ Change to the directory where you ran all of your jobs and all of the files with
 
     :::Bash
     clean_abaqus.py
+---
 
     :::python
     #!/usr/bin/env python

@@ -1,40 +1,49 @@
 {% extends "base.html" %}
 
 {% block body %}
-
-{% if pagination %}
     <div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title"> Jacob Merson's Blog </h1>
+        <p class="blog-description"> A blog about mehcanical engineering, computers, and computational mechanics </p>
+    </div> <!-- blog header --!>
+    <div class="blog-main">
     {% for subpage in pagination.page_items %}
         <div class="row">
             <div class="col-md-12">
-            <a href="{{ subpage.url }}"><h2>{{ subpage.title }}</h2></a>
+            <a href="{{ subpage.url }}"><h2 class=blog-post-title>{{ subpage.title }}</h2></a>
+            <p class="blog-post-date"> {{ subpage.datetime.strftime("%A %B %d, %Y") }} </p>
+            <p class="blog-post-tags"> {% for tag in subpage.tags %} {{ tag }} {% endfor %} </p>
             </div>
             {% if subpage.image %}
                 <div class="col-md-4">
                     <!--image -->
                     <img src="{{ subpage.image.url }}" class="img-responsive">
                 </div>
-                <div class="col-md-8">
-                    <p class="lead">{{ subpage.content|truncate(length=200) }}</p>
+                <div class="col-md-8 blog-post">
+                    <p class="lead">{{ subpage.content|truncate(length=400) }}</p>
                 </div>
             {% else %}
-                <div class="col-md-12">
-                    <p class="lead">{{ subpage.content|truncate(length=200) }}</p>
+                <div class="col-md-12 blog-post">
+                    <p class="lead">{{ subpage.content|truncate(length=400) }}</p>
                 </div>
             {% endif %}
         </div>
     {% endfor %}
+    </div> <!-- blog main --!>
     </div>
+{% if pagination %}
     <span class="container-fluid">
+       <nav>
+       <ul class="pager">
         {% if pagination.prev_page %}
-            <a href="{{ pagination.prev_page.url }}">Previous Page</a>
+            <li><a href="{{ pagination.prev_page.url }}">Previous Page</a></li>
         {% endif %}
         Page {{ pagination.cur_page }} of {{ pagination.num_pages }}
         {% if pagination.next_page %}
-            <a href="{{ pagination.next_page.url }}">Next Page</a>
+            <li><a href="{{ pagination.next_page.url }}">Next Page</a></li>
         {% endif %}
+       </ul>
+       </nav>
     </span>
-{% else %} <!-- if no pagination is selected -->
-<h1>You should never see this text. Pagination should always be used with this type of page!</h1>
 {% endif %}
 {% endblock body %}

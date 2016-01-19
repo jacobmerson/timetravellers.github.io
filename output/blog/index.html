@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Computational Mechanics">
+    <meta name="author" content="Jacob Merson">
 
     <!-- styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
     <link href="/css/footer.css" rel="stylesheet">
+    <link href="/css/blog.css" rel="stylesheet">
     <!-- Style for code syntax highlighting -->
     <link href="/css/highlighting.css" rel="stylesheet">
     <link href="/css/mathjax.css" rel="stylesheet">
@@ -86,48 +88,67 @@
 
         <div id="main">
             
-
-
     <div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title"> Jacob Merson's Blog </h1>
+        <p class="blog-description"> A blog about mehcanical engineering, computers, and computational mechanics </p>
+    </div> <!-- blog header --!>
+    <div class="blog-main">
     
         <div class="row">
             <div class="col-md-12">
-            <a href="/blog/abaqus-utilities.html"><h2>Abaqus Utilities</h2></a>
+            <a href="/blog/abaqus-utilities.html"><h2 class=blog-post-title>Abaqus Utilities</h2></a>
+            <p class="blog-post-date"> Sunday January 18, 2015 </p>
+            <p class="blog-post-tags">  abaqus  queue  bash  python  </p>
             </div>
             
-                <div class="col-md-12">
-                    <p class="lead"><p>Note: I will try to keep this page up to date, but I won't guarantee it. Updated software is kept in the git repository <a href="https://gitlab.com/jacob.merson/abaqus-utilities">here</a>. If ...</p>
+                <div class="col-md-12 blog-post">
+                    <p class="lead"><p>Note: I will try to keep this page up to date, but I won't guarantee it. Updated software is kept in the git repository <a href="https://gitlab.com/jacob.merson/abaqus-utilities">here</a>. If you use this software and want to help me improve it please submit a merge request.</p>
+<p>I am releasing these quick an dirty for today. These are two scripts that I use all the time working with ...</p>
                 </div>
             
         </div>
     
         <div class="row">
             <div class="col-md-12">
-            <a href="/blog/cmake-petsc.html"><h2>Using CMAKE with PETSc or MPI</h2></a>
+            <a href="/blog/cmake-petsc.html"><h2 class=blog-post-title>Using CMAKE with PETSc or MPI</h2></a>
+            <p class="blog-post-date"> Saturday January 17, 2015 </p>
+            <p class="blog-post-tags">  cmake  petsc  c++  mpi  </p>
             </div>
             
-                <div class="col-md-12">
-                    <p class="lead"><p>A large part of developing software is getting the build process to work. As a new student in RPI's Scientific Computation Research Center (<a href="http://www.scorec.rpi.edu/">SCOREC</a>) I ...</p>
+                <div class="col-md-12 blog-post">
+                    <p class="lead"><p>A large part of developing software is getting the build process to work. As a new student in RPI's Scientific Computation Research Center (<a href="http://www.scorec.rpi.edu/">SCOREC</a>) I started trying to figure out how to build some of our tools so that we can interface them with new projects.</p>
+<p>More specifically I have written a Euler-Bernoulli and Timoshenko Beam finite element ...</p>
                 </div>
             
         </div>
     
         <div class="row">
             <div class="col-md-12">
-            <a href="/blog/website.html"><h2>Website</h2></a>
+            <a href="/blog/website.html"><h2 class=blog-post-title>Website</h2></a>
+            <p class="blog-post-date"> Friday January 02, 2015 </p>
+            <p class="blog-post-tags">  static site  wok  pygments  mathjax  css  </p>
             </div>
             
-                <div class="col-md-12">
-                    <p class="lead"><p>I currently don't have the time to fully explain all of the things I have done with my website. For now this article is a stub that gives a shout out to the amazing technology that I rely on to ...</p>
+                <div class="col-md-12 blog-post">
+                    <p class="lead"><p>I currently don't have the time to fully explain all of the things I have done with my website. For now this article is a stub that gives a shout out to the amazing technology that I rely on to put words onto the internet.</p>
+<h2>Static Site Generation</h2>
+<p>To generate HTML pages from markdown files and <a href="http://jinja.pocoo.org/">Jinja</a> templates I use the static site ...</p>
                 </div>
             
         </div>
     
+    </div> <!-- blog main --!>
     </div>
+
     <span class="container-fluid">
+       <nav>
+       <ul class="pager">
         
         Page 1 of 1
         
+       </ul>
+       </nav>
     </span>
 
 
