@@ -64,7 +64,7 @@
                     <a class="navbar-brand" href="index.html">Jacob Merson</a>
                 </div>
                 <div class="collapse navbar-collapse" id="jm-navbar">
-                    <u1 class="nav navbar-nav">
+                    <ul class="nav navbar-nav">
                         {%- for nav in site.tags['_nav']|sort(attribute='nav_weight') %}
                           {%- if nav.url == page.url %}
                             <li class="active">
@@ -76,7 +76,7 @@
                             </li>
                           {%- endif %}
                         {%- endfor %}
-                    </u1>
+                    </ul>
                 </div>
         </nav>
 
