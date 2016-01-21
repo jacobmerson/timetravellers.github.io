@@ -21,6 +21,7 @@ author:
 #  twitter: mfenner
 
 highlighter: pygments
+markdown: redcarpet
 
 
 analytics :

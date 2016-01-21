@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Website"
+title:  "Website Generation"
 date:   2016-01-02
 tags: wok jekyll jinja latex pygments
 ---
@@ -8,7 +8,7 @@ tags: wok jekyll jinja latex pygments
 I currently don't have the time to fully explain all of the things I have done with my website. For now this article is a stub that gives a shout out to the amazing technology that I rely on to put words onto the internet.
 
 ## Static Site Generation
-To generate HTML pages from markdown files and [Jinja](http://jinja.pocoo.org/) templates I use the static site generator called [Wok](https://github.com/mythmon/wok) developed by Mike Cooper. It's not as hard as it sounds, and it really beats hand coding html.
+To generate HTML pages from markdown files and [Jinja](http://jinja.pocoo.org/) templates I *used* to use the static site generator called [Wok](https://github.com/mythmon/wok) developed by Mike Cooper. I switched over to [Jekyll](http://jekyllrb.com/) because it has more documentation, and a bigger community. Something that I have learned in the past few years is that having documentation and examples is one of the most important aspects of a project.
 
 ## Responsive-ish Design
 I am not a web developer and I guarantee that I made some mistakes. I used the [twitter bootstrap 3](http://getbootstrap.com/) css framework to make my webpage responsive.
@@ -25,22 +25,22 @@ Unfortunately due to the math rendering the pages can load slowly on a flaky int
 Programming is my butter...Since I'm studying computational mechanics it turns out that I have to do a lot of programming. In order to make my code look nice I use a python module called [pygments](http://pygments.org/).
 For example here is some syntax highlighted python code.
 
-    {% highlight python %}
-    #!/usr/bin/env python
-    
-    import glob
+```python
+#!/usr/bin/env python
 
-    def useless_python_function(**args):
-        """
-        This function is used to list files
-        """
-        #files is a list of all files in the folder
-        files = glob.glob('*')
-        
-        #print each file name
-        for file in files:
-            print file
+import glob
+
+def useless_python_function(**args):
+    """
+    This function is used to list files
+    """
+    #files is a list of all files in the folder
+    files = glob.glob('*')
     
-    if __name__ == "__main__":
-        useless_python_function()
-    {% endhighlight %}
+    #print each file name
+    for file in files:
+        print file
+
+if __name__ == "__main__":
+    useless_python_function()
+```

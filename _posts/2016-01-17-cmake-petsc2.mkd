@@ -13,39 +13,38 @@ Although my original goal was to get CMAKE to work with PETSc the eventual solut
 ## Traditional PETSc Makefile
 The easiest way to get started compiling your program is by using the compiling commands included with PETSc. My makefile looks like this:
 
-    {% highlight makefile %}
-    CPPFLAGS         = -std=c++0x
-    
-    include ${PETSC_DIR}/lib/petsc/conf/variables
-    include ${PETSC_DIR}/lib/petsc/conf/rules
-    
-    all: beam
-    
-    beam: beam_fem.o element.o node.o material.o reader.o chkopts
-    	-${CLINKER} beam_fem.o element.o node.o material.o reader.o ${PETSC_KSP_LIB} -o beam_fem.out 
-    
-    beam_fem.o: ./src/beam_fem.cpp ./include/element.h ./include/node.h
-    	-$(PETSC_COMPILE) -c ./src/beam_fem.cpp -I ./include
-    
-    element.o: ./src/element.cpp ./include/element.h ./include/node.h
-    	-$(PETSC_CXXCOMPILE) -c ./src/element.cpp -I ./include
-    
-    node.o: ./src/node.cpp ./include/node.h
-    	-$(PETSC_CXXCOMPILE) -c ./src/node.cpp -I ./include
-    
-    material.o: ./src/material.cpp ./include/material.h
-    	-$(PETSC_CXXCOMPILE) -c ./src/material.cpp -I ./include
-    
-    reader.o: ./src/reader.cpp ./include/reader.h
-    	-$(PETSC_CXXCOMPILE) -c ./src/reader.cpp -I ./include
-    
-    .PHONY: print_vars
-    print_vars:
-    	-@echo "PETSC_DIR: $(PETSC_DIR)"
-    	-@echo "CLINKER: $(CLINKER)"
-    	-@echo "CXX_COMPILE: $(PETSC_CXXCOMPILE)"
-    	-@echo "C_COMPILE: $(PETSC_COMPILE)"
-    {% endhighlight %}
+```makefile
+CPPFLAGS         = -std=c++0x
+include ${PETSC_DIR}/lib/petsc/conf/variables
+include ${PETSC_DIR}/lib/petsc/conf/rules
+
+all: beam
+
+beam: beam_fem.o element.o node.o material.o reader.o chkopts
+    -${CLINKER} beam_fem.o element.o node.o material.o reader.o ${PETSC_KSP_LIB} -o beam_fem.out 
+
+beam_fem.o: ./src/beam_fem.cpp ./include/element.h ./include/node.h
+    -$(PETSC_COMPILE) -c ./src/beam_fem.cpp -I ./include
+
+element.o: ./src/element.cpp ./include/element.h ./include/node.h
+    -$(PETSC_CXXCOMPILE) -c ./src/element.cpp -I ./include
+
+node.o: ./src/node.cpp ./include/node.h
+    -$(PETSC_CXXCOMPILE) -c ./src/node.cpp -I ./include
+
+material.o: ./src/material.cpp ./include/material.h
+    -$(PETSC_CXXCOMPILE) -c ./src/material.cpp -I ./include
+
+reader.o: ./src/reader.cpp ./include/reader.h
+    -$(PETSC_CXXCOMPILE) -c ./src/reader.cpp -I ./include
+
+.PHONY: print_vars
+print_vars:
+    -@echo "PETSC_DIR: $(PETSC_DIR)"
+    -@echo "CLINKER: $(CLINKER)"
+    -@echo "CXX_COMPILE: $(PETSC_CXXCOMPILE)"
+    -@echo "C_COMPILE: $(PETSC_COMPILE)"
+```
 
 You can see that I use the `CLINKER` and `PETSC_CXXCOMPILE` commands. These are defined in the petsc variables file that is included at the top of the makefile. I also have a `.PHONY` rule which lets me print out information about what the PETSc compile commands are actually doing.
 
@@ -67,59 +66,59 @@ The following examples assumes that you have installed mpi along with PETSc.
 ### Method 1
 Set the `CC` and `CXX` variables before compiling with cmake.
 
-    {% highlight bash %}
-    export CC=$PETSC_DIR/$PETSC_ARCH/bin/mpicc
-    export CXX=$PETSC_DIR/$PETSC_ARCH/bin/mpicxx
-    mkdir build
-    cd build/
-    cmake ..
-    {% endhighlight %}
+```bash
+export CC=$PETSC_DIR/$PETSC_ARCH/bin/mpicc
+export CXX=$PETSC_DIR/$PETSC_ARCH/bin/mpicxx
+mkdir build
+cd build/
+cmake ..
+```
 
 ### Method 2
 Use the cmake -D flag to set the compiler options. Note that you only have to supply these command line options the first time you call cmake. All subsequent builds will know to use the appropriate compiler.
 
-    {% highlight bash %}
-    mkdir build
-    cd build/
-    cmake .. -D CMAKE_C_COMPILER=$PETSC_DIR/$PETSC_ARCH/bin/mpicc -D CMAKE_CXX_COMPILER=$PETSC_DIR/$PETSC_ARCH/bin/mpicxx
-    {% endhighlight %}
+```bash
+mkdir build
+cd build/
+cmake .. -D CMAKE_C_COMPILER=$PETSC_DIR/$PETSC_ARCH/bin/mpicc -D CMAKE_CXX_COMPILER=$PETSC_DIR/$PETSC_ARCH/bin/mpicxx
+```
 
 ### CMakeLists.txt
 
-    {% highlight CMAKE %}
-    mkdir build
-    cmake_minimum_required (VERSION 2.6.3)
-    project (BEAM)
-    
-    list (APPEND CMAKE_MODULE_PATH "${BEAM_SOURCE_DIR}/../cmake-modules")
-    
-    find_package (PETSc REQUIRED)
-    
-    message (STATUS "PETSC COMPILER ${PETSC_COMPILER}")
-    
-    option (BEAM_ALL_WARNINGS       "Compile with all warnings (-Wall)"           ON)
-    option (BEAM_WERROR             "Treat warnings as errors (-Werror)"          OFF)
-    
-    add_definitions (-std=c++0x)
-    message (STATUS "CPP COMPILER ${PETSC_COMPILER}")
-    
-    if (BEAM_ALL_WARNINGS)
-        add_definitions ("-Wall")
-    endif ()
-    if (BEAM_WERROR)
-      add_definitions (-Werror)
-    endif ()
-    
-    include_directories ("${BEAM_SOURCE_DIR}/include" "${BEAM_BINARY_DIR}/include" ${PETSC_INCLUDES})
-    add_definitions (${PETSC_DEFINITIONS})
-    add_definitions (-g)
-    message (STATUS "PETSC_DEFINITIONS ${PETSC_DEFINITIONS}")
-    
-    set (BEAM_DEPENDENT_LIBRARIES "${PETSC_LIBRARIES}")
-    
-    add_subdirectory (include)
-    add_subdirectory (src)
-    {% endhighlight %}
+```cmake
+mkdir build
+cmake_minimum_required (VERSION 2.6.3)
+project (BEAM)
+
+list (APPEND CMAKE_MODULE_PATH "${BEAM_SOURCE_DIR}/../cmake-modules")
+
+find_package (PETSc REQUIRED)
+
+message (STATUS "PETSC COMPILER ${PETSC_COMPILER}")
+
+option (BEAM_ALL_WARNINGS       "Compile with all warnings (-Wall)"           ON)
+option (BEAM_WERROR             "Treat warnings as errors (-Werror)"          OFF)
+
+add_definitions (-std=c++0x)
+message (STATUS "CPP COMPILER ${PETSC_COMPILER}")
+
+if (BEAM_ALL_WARNINGS)
+    add_definitions ("-Wall")
+endif ()
+if (BEAM_WERROR)
+  add_definitions (-Werror)
+endif ()
+
+include_directories ("${BEAM_SOURCE_DIR}/include" "${BEAM_BINARY_DIR}/include" ${PETSC_INCLUDES})
+add_definitions (${PETSC_DEFINITIONS})
+add_definitions (-g)
+message (STATUS "PETSC_DEFINITIONS ${PETSC_DEFINITIONS}")
+
+set (BEAM_DEPENDENT_LIBRARIES "${PETSC_LIBRARIES}")
+
+add_subdirectory (include)
+add_subdirectory (src)
+```
 
 ## Conclusions
 I hope that if you have stumbled upon this webpage that I have saved you a little bit of time. I spent a few days going around in circles trying to make cmake work with my project and PETSc. You can see from my [pull request in FindPETSc.cmake](https://github.com/jedbrown/cmake-modules/pull/12) that I originally thought I had to link the mpi libraries manually. This was only after `FindMPI.cmake` had failed me.
