@@ -1,0 +1,14 @@
+---
+layout: home
+title: "Home"
+type: home
+
+group: navigation
+nav_weight: 1
+
+permalink: /index.html
+image:
+    url: /assets/img/dunes.jpg
+---
+
+You have reached the home page of Jacob Merson. Please explore and learn [about](about.html) me. If you have any questions please [contact](contact.html) me.

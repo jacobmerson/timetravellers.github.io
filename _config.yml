@@ -1,0 +1,30 @@
+#gems:
+#  - jekyll-pandoc
+#
+#permalink: /:categories/:year/:month/:day/:title
+
+#paginate: 10
+#paginate_path: "page:num"
+
+title: Jacob Merson
+tagline:
+url: http://www.jacobmerson.com
+author:
+  name: Jacob Merson
+  orcid: 0000-0002-6813-6532
+  email: jacob.merson@gmail.com
+  work_email: mersoj@rpi.edu
+  #gravatar: abfd3f212a9252ecb14687a2c62f934b
+  affiliation:
+  github: timetravellers
+  gitlab: jacob.merson
+#  twitter: mfenner
+
+highlighter: pygments
+
+
+analytics :
+    provider : google
+    google :
+        tracking_id : 'UA-48100105-1'
+        site_name: 'jacobmerson.com'

@@ -1,8 +1,0 @@
-title: Resume
-slug: resume
-tags: [_nav]
-nav_weight: 3
-
----
-
-[PDF Resume](pdf/resume.pdf)

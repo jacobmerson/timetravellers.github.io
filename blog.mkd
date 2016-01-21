@@ -1,0 +1,7 @@
+---
+layout: blog-index
+title: "Blog"
+group: navigation
+nav_weight: 4
+permalink: /blog/
+---

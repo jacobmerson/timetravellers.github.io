@@ -1,0 +1,50 @@
+---
+layout: base
+---
+
+<div class="container">
+<div class="blog-header">
+    <h1 class="blog-title"> {{ site.blog.title }} </h1>
+    <p class="blog-description">  {{ site.blog.description }} </p>
+</div> <!-- blog header --!>
+<div class="blog-main">
+{% for post in site.posts %}
+    <div class="row">
+        <div class="col-md-12">
+        <a href="{{ post.url }}"><h2 class=blog-post-title>{{ post.title }}</h2></a>
+        <p class="blog-post-date"> {{ post.date | date: "%A %B %d, %Y" }} </p>
+        <p class="blog-post-tags"> {{ post.tags | array_to_sentence_string }}</p>
+        </div>
+        {% if post.image %}
+            <div class="col-md-4">
+                <!--image -->
+                <img src="{{ post.image.url }}" class="img-responsive">
+            </div>
+            <div class="col-md-8 blog-post">
+
+                <p class="lead">{{ post.excerpt }}</p>
+            </div>
+        {% else %}
+            <div class="col-md-12 blog-post">
+                <p class="lead">{{ post.excerpt }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}
+</div> <!-- blog main --!>
+</div>
+{% if pagination %}
+<span class="container-fluid">
+   <nav>
+   <ul class="pager">
+    {% if pagination.prev_page %}
+        <li><a href="{{ pagination.prev_page.url }}">Previous Page</a></li>
+    {% endif %}
+    Page {{ pagination.cur_page }} of {{ pagination.num_pages }}
+    {% if pagination.next_page %}
+        <li><a href="{{ pagination.next_page.url }}">Next Page</a></li>
+    {% endif %}
+   </ul>
+   </nav>
+</span>
+{% endif %}
