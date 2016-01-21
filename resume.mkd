@@ -1,0 +1,9 @@
+---
+layout: home
+title: Resume
+group: "navigation"
+nav_weight: 3
+
+permalink: /resume.html
+---
+[PDF Resume](/assets/pdf/resume.pdf)

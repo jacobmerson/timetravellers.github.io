@@ -1,0 +1,23 @@
+---
+layout: about
+title: "About"
+group: navigation
+nav_weight: 2
+permalink: /about.html
+image:
+    url: /assets/img/about.jpg
+---
+### Basics
+
+I am an graduate student studying mechanical engineering at [Rensselaer Polytechnic Institute (RPI)](http://www.rpi.edu).
+
+### Work
+
+I am currently working for Professor Catalin Picu studing computational mechanics.
+
+I have also worked at [Los Alamos National Lab](www.lanl.gov) studying residual stress and plastic anisotropy with Dr. Michael Prime.
+
+I used to work as an undergraduate research assistant in the RPI Nano-M3 lab under [Professor Johnson Samuel](http://www.johnsonsamuel.com). With professor Samuel I worked with manufacturing bio-materials and finite element analysis of materials with significant microstructural characteristics.
+
+### Other
+If you have any questions please feel free to [contact me](contact.html). Also please check out my [resume](resume.html).
