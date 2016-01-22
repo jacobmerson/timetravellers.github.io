@@ -29,3 +29,7 @@ analytics :
     google :
         tracking_id : 'UA-48100105-1'
         site_name: 'jacobmerson.com'
+
+#set this variable to load local content for easier debugging with no internet
+#for easier debugging Note I don't have mathjax installed because it was a pain...
+#environment: "development"

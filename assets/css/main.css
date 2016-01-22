@@ -2,10 +2,16 @@
  * Globals
  */
 body {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: #555;
+  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #111;
+  background-color: #fdfdfd;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
 }
-
 h1, .h1,
 h2, .h2,
 h3, .h3,
@@ -13,7 +19,16 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
   color: #333;
+}
+
+/* Wrapper for page contents */
+/* Note this pushes the footer down to the correct height */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
 }

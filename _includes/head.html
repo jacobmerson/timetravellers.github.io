@@ -6,12 +6,19 @@
     <meta name="author" content="Jacob Merson">
 
     <!-- styles -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    {% assign environment = site.environment %}
+    {% if environment == "development" %}
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    {% else %}
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    {% endif %}
+
     <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/footer.css" rel="stylesheet">
     <link href="/assets/css/blog.css" rel="stylesheet">
     <!-- Style for code syntax highlighting -->
-    <link href="/assets/css/highlighting.css" rel="stylesheet">
+    <!--<link href="/assets/css/pygments_default.css" rel="stylesheet">--!>
+    <link href="/assets/css/pygments_monokai.css" rel="stylesheet">
     <link href="/assets/css/mathjax.css" rel="stylesheet">
     
 	<title>{{ site.title }} | {{ page.title }}</title>
@@ -21,28 +28,5 @@
         <script src="/assets/js/response.min.js"></script>
         <script src="/assets/js/html5.shif.js"></script>
     <![endif]-->
-
-    <!--Add mathjax capability-->
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            extensions: ["tex2jax.js"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-            tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-        },
-        "HTML-CSS": { availableFonts: ["TeX"] }
-        });
-        MathJax.Hub.Queue(function() {
-            // Fix <code> tags after MathJax finishes running. This is a
-            // hack to overcome a shortcoming of Markdown. Discussion at
-            // https://github.com/mojombo/jekyll/issues/199
-            var all = MathJax.Hub.getAllJax(), i;
-            for(i = 0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-            }
-        });
-    </script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+    {% include mathjax.html %}
   </head>
