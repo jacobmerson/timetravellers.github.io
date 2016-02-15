@@ -1,0 +1,34 @@
+---
+layout: base
+---
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<div class="container">
+    <h1>{{page.title}}</h1>
+	<hr>
+    <ul class="contact-list">
+        <li>
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:{{site.author.email}}">Email</a>
+        </li>
+        <li>
+            <i class="fa fa-linkedin-square"></i>
+            <a href="http://www.linkedin.com/pub/{{site.author.linkedin}}">Linked In</a>
+        </li>
+        <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/{{site.author.github}}">Github</a>/
+            <img src="{{site.baseurl}}/assets/img/gitlab-logo-square.svg" style="height:16px;">
+            <a href="https://gitlab.com/{{site.author.gitlab}}">Gitlab</a>
+        </li>
+        <li>
+            <img src="{{site.baseurl}}/assets/img/orcid_logo_24x24.png" style="height:16px;">
+            <a href="http://www.orcid.org/{{site.author.orcid}}">ORCID</a>/
+            <img src="{{site.baseurl}}/assets/img/researchid_badge_sm.gif" style="height:16px;">
+            <a href="http://www.researcherid.com/rid/{{site.author.researcherid}}">Research ID</a>
+
+        </li>
+    </ul>
+    {{content}}
+</div>

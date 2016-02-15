@@ -14,14 +14,14 @@ author:
   orcid: 0000-0002-6813-6532
   email: jacob.merson@gmail.com
   work_email: mersoj@rpi.edu
-  #gravatar: abfd3f212a9252ecb14687a2c62f934b
   affiliation:
   github: timetravellers
   gitlab: jacob.merson
-#  twitter: mfenner
+  linkedin: jacob-merson/33/b39/649/
+  researcherid: A-8058-2016
 
-highlighter: pygments
 markdown: redcarpet
+hilighter: rouge
 
 
 analytics :

@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: contact
 title: "Contact"
 
 group: navigation
@@ -7,7 +7,3 @@ nav_weight: 5
 
 permalink: /contact.html
 ---
-
-**Email:** jacob[dot]merson[at]gmail[dot]com
-
-**[Linked In](http://www.linkedin.com/pub/jacob-merson/33/b39/649/)** 

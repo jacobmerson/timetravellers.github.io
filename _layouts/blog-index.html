@@ -12,8 +12,8 @@ layout: base
     <div class="row">
         <div class="col-md-12">
         <a href="{{ post.url }}"><h2 class=blog-post-title>{{ post.title }}</h2></a>
-        <p class="blog-post-date"> {{ post.date | date: "%A %B %d, %Y" }} </p>
-        <p class="blog-post-tags"> {{ post.tags | array_to_sentence_string }}</p>
+        <p class="blog-post-date"><span class="glyphicon glyphicon-time"></span> {{ post.date | date: "%A %B %d, %Y" }} </p>
+        <p class="blog-post-tags"> <span class="glyphicon glyphicon-tags"></span> {{ post.tags | array_to_sentence_string }}</p>
         </div>
         {% if post.image %}
             <div class="col-md-4">
@@ -23,10 +23,12 @@ layout: base
             <div class="col-md-8 blog-post">
 
                 <p class="lead">{{ post.excerpt }}</p>
+                <a href={{ post.url }}> Read More </a>
             </div>
         {% else %}
             <div class="col-md-12 blog-post">
                 <p class="lead">{{ post.excerpt }}</p>
+                <a href={{ post.url }}> Read More </a>
             </div>
         {% endif %}
     </div>
